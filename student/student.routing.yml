@@ -1,0 +1,21 @@
+student.add_student_form:
+  path: 'admin/student/add'
+  defaults:
+    _entity_form: student.add_student
+    _title: 'Add student'
+  requirements:
+    _permission: 'administer site configuration'
+student.export:
+  path: '/student/export'
+  defaults:
+    _title: 'Entity Export'
+    _controller: '\Drupal\student\Controller\StudentController::build'
+  requirements:
+    _permission: 'access content'
+student.excel:
+  path: '/excel-export'
+  defaults:
+    _title: 'Entity Export'
+    _controller: '\Drupal\student\Controller\StudentController::getReport'
+  requirements:
+    _permission: 'access content'
