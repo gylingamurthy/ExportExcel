@@ -1,0 +1,21 @@
+{{ title }}
+<table border="1">
+ <tr>
+   <th>Name</th>
+   <th>Roll Number</th>
+   <th>Subject</th>
+   <th>Score</th>
+ </tr>
+
+
+{% for student in items %}
+<tr>
+    <td>{{ student.name }}</td>
+    <td>{{ student.rollnumber }}</td>
+    <td>{{ student.subject }}</td>
+    <td>{{ student.score }}</td>
+<tr>
+       {% endfor %}
+
+</table>
+{{ elink }}
