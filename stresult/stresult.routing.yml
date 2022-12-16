@@ -1,0 +1,7 @@
+stresult.add_stresult_form:
+  path: 'admin/stresult/add'
+  defaults:
+    _entity_form: stresult.add_stresult
+    _title: 'Add result'
+  requirements:
+    _permission: 'administer site configuration'
