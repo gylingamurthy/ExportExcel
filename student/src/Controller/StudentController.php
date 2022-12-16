@@ -7,6 +7,8 @@ use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\HttpFoundation\Request;
 use Drupal\Core\Url;
 use Drupal\Core\Link;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 
 /**
@@ -14,8 +16,32 @@ use Drupal\Core\Link;
  */
 class StudentController extends ControllerBase {
 
+ 
+  /**
+ * The student handler service.
+ *
+ * @var \Drupal\Core\Database\Driver\mysql\Connection
+ */
+  protected $connect;
 
-  public $rows = [];
+  /**
+   * Constructs a StudentController object
+   *
+   * @param \Drupal\Core\Database\Driver\mysql\Connection
+   *   The module handler service.
+   */
+  public function __construct(Connection $connection) {
+    $this->connect = $connection;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('database')
+    );
+  }
   /**
    * Builds the response.
    */
@@ -50,13 +76,13 @@ class StudentController extends ControllerBase {
          echo implode("\t", array_values($item)) . "\n";
       }
 
-      
+
       exit();
 
   }
 
   public function getData() {
-    $query = \Drupal::database()->query("SELECT name,rollnumber,subject,score FROM student n INNER JOIN stresult m ON m.rollnumber=n.id");
+    $query = $this->connect->query("SELECT name,rollnumber,subject,score FROM student n INNER JOIN stresult m ON m.rollnumber=n.id");
     $result = $query->fetchAll();
 
 
